@@ -18,8 +18,10 @@ class CreatePaiementsTable extends Migration
         Schema::create('paiements', function (Blueprint $table) {
             $table->primary(['user_id', 'student_id']);
             $table->string('code');
+            $table->double('amount');
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Student::class);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

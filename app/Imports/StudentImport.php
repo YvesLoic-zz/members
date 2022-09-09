@@ -24,7 +24,6 @@ class StudentImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         $date = Date::excelToDateTimeObject($row['birthday']);
-        // dd($date->format('Y-m-d'));
         return new Student([
             'matricule' => $row['matricule'],
             'first_name' => $row['firstname'],

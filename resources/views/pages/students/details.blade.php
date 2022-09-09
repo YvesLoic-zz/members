@@ -62,6 +62,18 @@
                     @endif
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 label">{{ __('Student paiement') }}</div>
+                <div class="col-lg-6 col-md-6">
+                    <?php
+                        $res = 0.0;
+                        foreach ($student->paiements as $paid) {
+                            $res = $res + $paid->amount;
+                        }
+                        echo($res);
+                    ?>
+                </div>
+            </div>
             @if (Auth::user()->rule == 'admin' ||
                 (Auth::user()->rule == 'director' && Auth::user()->id == $student->school->user_id))
                 <div class="row">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Exports\StudentExport;
 use App\Forms\StudentForm;
 use App\Http\Controllers\Controller;
 use App\Http\Library\Library;
@@ -38,7 +39,7 @@ class StudentController extends Controller
     {
         $user = $request->user();
         if ($this->isRecognized($user)) {
-            $students = Student::withTrashed()->get();
+            $students = Student::withTrashed()->with('school')->get();
             $school = School::withTrashed()->find($id);
             if ($request->ajax()) {
                 return DataTables::of($students)
@@ -244,5 +245,21 @@ class StudentController extends Controller
         $student->sex = $req->sex;
         $student->school_id = $req->school_id;
         return $student;
+    }
+
+    /**
+     *
+     */
+    public function exportStudent(Request $request, int $id)
+    {
+        $user = $request->user();
+        if ($this->isRecognized($user)) {
+            $school = School::findOrFail($id);
+            if (!empty($school)) {
+                return Excel::download(new StudentExport($school->id), '' . $school->name . '_studentsList.xlsx');
+            }
+            abort(404, "School datat not found!");
+        }
+        abort(403, "Access Denied!");
     }
 }

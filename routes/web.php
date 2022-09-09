@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Web\PaidController;
 use App\Http\Controllers\Web\SchoolController;
 use App\Http\Controllers\Web\StudentController;
 use App\Http\Controllers\Web\UserController;
@@ -57,11 +58,20 @@ Route::middleware(['auth', 'userIs:director'])->group(
                 route::get('/{id}/index', [StudentController::class, 'index'])->name('student_index');
                 route::get('/{id}/create', [StudentController::class, 'create'])->name('student_create');
                 route::get('/{id}/show', [StudentController::class, 'show'])->name('student_show');
+                route::get('/{id}/export', [StudentController::class, 'exportStudent'])->name('student_export');
                 route::post('/{id}/store', [StudentController::class, 'store'])->name('student_store');
                 route::post('/{id}/bulkstore', [StudentController::class, 'bulkStore'])->name('student_bulkStore');
                 route::get('/{id}/edit', [StudentController::class, 'edit'])->name('student_edit');
                 route::put('/{id}/update', [StudentController::class, 'update'])->name('student_update');
                 route::get('/{id}/delete', [StudentController::class, 'destroy'])->name('student_delete');
+            }
+        );
+
+        Route::prefix('fees')->group(
+            function () {
+                Route::get('/{id}/index', [PaidController::class, 'index'])->name('fees_index');
+                Route::get('/{id}/create', [PaidController::class, 'create'])->name('fees_create');
+                Route::post('/{id}/store', [PaidController::class, 'store'])->name('fees_store');
             }
         );
     }

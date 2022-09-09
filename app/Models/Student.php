@@ -10,6 +10,7 @@ class Student extends Model
 {
     use HasFactory, SoftDeletes;
 
+
      /**
      * The attributes that are mass assignable.
      *
@@ -41,7 +42,7 @@ class Student extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function paiementss()
+    public function paiements()
     {
         return $this->hasMany(Paiement::class);
     }

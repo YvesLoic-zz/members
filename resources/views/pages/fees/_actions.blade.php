@@ -5,7 +5,7 @@
     <a class="btn btn-info" href="{{ route('student_show', ['id' => $student->id]) }}">
         <i class="fa fa-eye"></i>
     </a>
-    <a class="btn btn-info" href="{{ route('fees_create', ['id' => $student->id]) }}">
+    <a class="btn btn-info" href="{{ route('student_show', ['id' => $student->id]) }}">
         <i class="fa fa-money"></i>
     </a>
 </span>
