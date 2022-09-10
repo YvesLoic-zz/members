@@ -16,9 +16,11 @@ class CreateRuleUserTable extends Migration
     public function up()
     {
         Schema::create('rule_user', function (Blueprint $table) {
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('rule_id')->unsigned();
             $table->primary(['user_id', 'rule_id']);
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Rule::class);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('rule_id')->references('id')->on('rules')->onDelete('cascade');
         });
     }
 

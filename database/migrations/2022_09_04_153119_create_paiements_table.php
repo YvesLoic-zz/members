@@ -19,8 +19,10 @@ class CreatePaiementsTable extends Migration
             $table->primary(['user_id', 'student_id']);
             $table->string('code');
             $table->double('amount');
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Student::class);
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('student_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

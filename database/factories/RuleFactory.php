@@ -13,7 +13,7 @@ class RuleFactory extends Factory
      */
     public function definition()
     {
-        $type = $this->faker->randomElement(['admin', 'director', 'operator']);
+        $type = $this->faker->randomElement(['admin', 'operator', 'director']);
         return [
             'name' => $type
         ];

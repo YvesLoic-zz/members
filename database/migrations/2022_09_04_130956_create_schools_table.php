@@ -19,7 +19,8 @@ class CreateSchoolsTable extends Migration
             $table->string('name');
             $table->string('contact')->unique();
             $table->text('description');
-            $table->foreignIdFor(User::class);
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

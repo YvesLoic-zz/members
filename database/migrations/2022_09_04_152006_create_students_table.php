@@ -23,7 +23,8 @@ class CreateStudentsTable extends Migration
             $table->date('birthday');
             $table->string('birthplace');
             $table->string('sex');
-            $table->foreignIdFor(School::class);
+            $table->bigInteger('school_id')->unsigned();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

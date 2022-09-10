@@ -92,7 +92,7 @@ class PaidController extends Controller
             return redirect()->route('student_index', $student->school->id)
                 ->with(
                     'success',
-                    'School created successfully!'
+                    'Paiement created successfully!'
                 );
         }
         abort(403, "Access denied!");
