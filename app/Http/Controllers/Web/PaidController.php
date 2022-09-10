@@ -83,8 +83,12 @@ class PaidController extends Controller
             $student = Student::withTrashed()->with('school')->find($id);
             $form = $this->_getForm($this->code, $student, $user->id);
             $form->redirectIfNotValid();
-            $s = $this->_fillPaiementData($request);
-            $s->save();
+            Paiement::create([
+                'code' => $this->code,
+                'amount' => $request->amount,
+                'student_id' => $request->student_id,
+                'user_id' => $request->user_id,
+            ]);
             return redirect()->route('student_index', $student->school->id)
                 ->with(
                     'success',
@@ -160,23 +164,5 @@ class PaidController extends Controller
                 'user_id' => $user
             ]
         );
-    }
-
-    /**
-     * Remplir les infos venant de la requette
-     *
-     * @param \Illuminate\Http\Request $req  requette utilisateur
-     * @param \App\Models\Paiement         $paid model
-     *
-     * @return \App\Models\Paiement
-     */
-    private function _fillPaiementData(Request $req, ?Paiement $paid = null)
-    {
-        $paid = $paid ?: new Paiement();
-        $paid->code = $this->code;
-        $paid->amount = $req->amount;
-        $paid->user_id = $req->user_id;
-        $paid->student_id = $req->student_id;
-        return $paid;
     }
 }

@@ -10,6 +10,13 @@ class Paiement extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        'code',
+        'amount',
+        'student_id',
+        'user_id'
+    ];
+
     /**
      * Cette méthode est utilisée pour avoir l'auteur d'un paiement.
      *
